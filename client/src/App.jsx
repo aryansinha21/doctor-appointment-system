@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "";
+const API_URL = import.meta.env.VITE_API_URL || "https://doctor-appointment-system-production-d63a.up.railway.app";
 
 const initialAuth = {
   name: "",
