@@ -7,6 +7,10 @@ const auth = (req, res, next) => {
     return res.status(401).json({ msg: "No token" });
   }
 
+  if (!process.env.JWT_SECRET) {
+    return res.status(500).json({ msg: "JWT secret is not configured" });
+  }
+
   const token = authHeader.startsWith("Bearer ")
     ? authHeader.split(" ")[1]
     : authHeader;
@@ -14,9 +18,9 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
-    next();
+    return next();
   } catch (err) {
-    res.status(401).json({ msg: "Invalid token" });
+    return res.status(401).json({ msg: "Invalid token" });
   }
 };
 
